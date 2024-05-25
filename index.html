@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"> Тэг канва не работает</canvas>
+</body>
+<script>
+    let canvas = document.getElementById("canvas");
+    let pen = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) - min);
+    }
+
+    function getRandomColor() {
+        let letters = "0123456789ABCDEF";
+        let color = "#"
+        for (let i = 0; i < 6; i++) {
+            color += letters[random(0, letters.length)];
+        }
+        return color;
+    }
+
+    function randomColor() {
+        red = random(0, 100);
+        blue = random(0, 100);
+        green = random(0, 100)
+        return `rgb(${red},${blue},${green})`
+    }
+    let count = 2
+    let scale = 10
+
+    function draw() {
+        let angle = count * 2 + 50;
+        let radius = scale * Math.sqrt(count) + 20;
+        let positionX = radius * Math.sin(angle) + canvas.width / 2;
+        let positionY = radius * Math.cos(angle) + canvas.height / 2;
+
+        pen.beginPath();
+        pen.strokeStyle = getRandomColor()
+        pen.fillStyle = randomColor();
+        pen.arc(positionX, positionY, 20, 0, Math.PI * 2);
+        pen.fill();
+        pen.stroke();
+        pen.closePath();
+
+        console.log(count);
+        count++;
+    }
+
+    function animate() {
+        draw();
+        window.requestAnimationFrame(animate);
+    }
+
+    animate();
+    // pen.beginPath();
+    // pen.moveTo(100, 100);
+    // pen.lineTo(200, 200);
+    // pen.lineWidth = 50;
+    // pen.strokeStyle = "rgb(100, 0, 100)"
+    // pen.stroke();
+    // pen.closePath();
+
+    // pen.beginPath();
+    // pen.moveTo(500, 100);
+    // pen.lineTo(600, 100);
+    // pen.strokeStyle = "rgb(0, 100, 0)"
+    // pen.lineWidth = 50;
+    // pen.stroke();
+    // pen.closePath();
+
+    // const pi = Math.PI
+
+    // pen.beginPath();
+    // pen.arc(500, 100, 50, 0, pi * 2);
+    // pen.strokeStyle = "rgb(0, 0, 100)"
+    // pen.lineWidth = 10;
+    // pen.stroke();
+    // pen.closePath();
+</script>
+
+</html>
